@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="SilenceIsGolden" default="jar">
+
+	<!-- Project-specific configuration -->
+	<property name="package" value="pushpork.silence"/>
+	<property name="main.class" value="${package}.Silence"/>
+	<property name="jar.file" value="${ant.project.name}.jar"/>
+
+	<property name="src.dir" value="src"/>
+	<property name="res.dir" value="res"/>
+	<property name="build.dir" value="build"/>
+	<property name="dist.dir" value="dist"/>
+
+	<target name="init">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${dist.dir}"/>
+	</target>
+	
+	<target name="compile" depends="init" description="compiles the source files">
+		<javac srcdir="${src.dir}" destdir="${build.dir}"/>
+		<copy todir="${build.dir}">
+			<fileset dir="${res.dir}"/>
+		</copy>
+	</target>
+	
+	<target name="jar" depends="compile" description="generates a JAR file">
+		<jar destfile="${dist.dir}/${jar.file}" basedir="${build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main.class}"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="clean" description="delete all generated files">
+		<delete dir="${build.dir}"/>
+		<delete dir="${dist.dir}"/>
+	</target>
+</project>
