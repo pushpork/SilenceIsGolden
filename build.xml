@@ -31,6 +31,10 @@
 		</jar>
 	</target>
 	
+	<target name="run" depends="jar" description="run the application">
+		<java jar="${dist.dir}/${jar.file}" fork="true"/>
+	</target>
+	
 	<target name="clean" description="delete all generated files">
 		<delete dir="${build.dir}"/>
 		<delete dir="${dist.dir}"/>
